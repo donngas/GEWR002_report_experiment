@@ -1,0 +1,8 @@
+[project]
+name = "gewr002-report-experiment"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "pandas>=2.3.3",
+]
