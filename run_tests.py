@@ -24,7 +24,7 @@ def main():
     # Run pytest with the specified module. The --module-name is a custom option.
     # The -v flag is for verbose output.
     # The --describe-skip='Test' flag is for a plugin that prints the describe blocks as headers.
-    pytest_args = ["-v", f"--module-name={module_name}", "tests/"]
+    pytest_args = ["-q", "--tb=no", f"--module-name={module_name}", "tests/"]
     sys.exit(pytest.main(pytest_args))
 
 if __name__ == "__main__":
