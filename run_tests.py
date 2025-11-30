@@ -1,10 +1,30 @@
 #from .analyzer import MovieAnalyzer
 import os
 import pandas as pd
-from mock_solve import MovieAnalyzer
+import importlib
+from typing import cast, Protocol
 from loguru import logger
 
 FPATH = "movies.csv"
+
+class MovieAnalyzerProtocol(Protocol):
+    def __init__(self, filepath): ...
+    def get_top_genres(self, top_n): ...
+    def calculate_average_by_year(self, start_year, end_year):...
+    def visualize_yearly_rating_trend(self): ...
+
+class SolveModuleProtocol(Protocol):
+    MovieAnalyzer: type[MovieAnalyzerProtocol]
+
+def import_by_arg(module: str) -> None:
+    try:
+        solve_module = importlib.import_module(module)
+    except ModuleNotFoundError:
+        logger.error(f"Module {module} not found.")
+    except Exception as e:
+        logger.error(f"Error while importing: {e}")
+
+    return cast(MovieAnalyzerProtocol, solve_module)
 
 if __name__ == "__main__":
     total_score = 0
