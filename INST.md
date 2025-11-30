@@ -22,5 +22,5 @@ MovieAnalyzer 클래스에서 구현해야 할 메소드:
   - Genre 결측치는 분석에서 제외 [10점]
 - calculate_average_by_year(self, start_year, end_year) [총 25점]
   - 지정된 start_year와 end_year 사이 구간에 개봉된 영화들의 연도별 평점 평균을 계산하여 딕셔너리 형태로 반환
-  - visualize_yearly_rating_trend(self) [총 25점]
+- visualize_yearly_rating_trend(self) [총 25점]
   - 연도별 평균 평점의 변화 추이를 나타내는 선 그래프를 Matplotlib으로 생성하고, rating_trend.png 파일로 저장
