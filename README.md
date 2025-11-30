@@ -1,4 +1,6 @@
-# 2025-2 GEWR002-15 General Writing<br>Report Assignment Team 3 - Coding Task Test Repo
+# 2025-2 GEWR002-15 General Writing
+
+## Report Assignment Team 3 - Coding Task Test Repo
 
 Test code to compare competitiveness of diffrent AI service types on coding task.
 
