@@ -8,3 +8,8 @@ dependencies = [
     "pandas>=2.3.3",
     "pytest>=9.0.1",
 ]
+
+[tool.pytest.ini_options]
+markers = [
+    "describe: custom description mark for test suites"
+]
