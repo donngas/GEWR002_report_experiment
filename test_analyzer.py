@@ -30,10 +30,14 @@ class TestInit:
 
     def test_rating_imputation(self, analyzer):
         """__init__ test 3: Missing 'Rating' values handled. (5 pts)"""
-        original_df = pd.read_csv(FPATH)
-        # Check only if there were missing ratings in the original file
-        if original_df['Rating'].isnull().any():
-            assert not analyzer.df['Rating'].isnull().any(), "Missing 'Rating' values were not handled"
+        original_df = pd.read_csv(FPATH) # Load original data to find what was imputed
+        expected_median = original_df['Rating'].median()
+        
+        # Check that there are no more NaNs in the 'Rating' column
+        assert not analyzer.df['Rating'].isnull().any(), "Missing 'Rating' values were not handled"
+        # Check that the imputed values match the median of the original non-missing ratings
+        imputed_mask = original_df['Rating'].isnull()
+        assert (analyzer.df.loc[imputed_mask, 'Rating'] == expected_median).all(), f"Missing 'Rating' values should have been imputed with the median ({expected_median})"
 
 @pytest.mark.describe("Test get_top_genres method (25 points)")
 def test_get_top_genres(analyzer):
@@ -45,17 +49,18 @@ def test_get_top_genres(analyzer):
 
     assert isinstance(top_3_genres, list), "Return type should be a list"
     assert len(top_3_genres) == 3, "List should contain top 3 genres"
+    assert all(isinstance(item, list) for item in top_3_genres), "Each item in the list should be a list (e.g., ['Genre', count])"
 
     # Expected from movies.csv: Comedy (4), Action (4), Sci-Fi (3), Thriller (3)
-    # Check counts
+    # Check counts. The top 2 are fixed, the 3rd can be Sci-Fi or Thriller.
     counts = [item[1] for item in top_3_genres]
     assert counts == [4, 4, 3], f"Expected counts [4, 4, 3], but got {counts}"
 
     # Check genres
-    # A valid top 3 must contain 'Comedy' and 'Action', and one of 'Sci-Fi' or 'Thriller'.
     genres = {item[0] for item in top_3_genres}
-    assert 'Comedy' in genres, "Top genres should include 'Comedy'"
-    assert 'Action' in genres, "Top genres should include 'Action'"
+    # Check that the top 2 genres are correct and in the correct order
+    assert top_3_genres[0][0] == 'Comedy', "Top genre should be 'Comedy'"
+    assert top_3_genres[1][0] == 'Action', "Second top genre should be 'Action'"
     assert 'Sci-Fi' in genres or 'Thriller' in genres, "Top 3 genres should include 'Sci-Fi' or 'Thriller'"
 
 @pytest.mark.describe("Test calculate_average_by_year method (25 points)")
@@ -66,6 +71,7 @@ def test_calculate_average_by_year(analyzer):
     avg_ratings = analyzer.calculate_average_by_year(start_year=2020, end_year=2021)
 
     assert isinstance(avg_ratings, dict), "Return type should be a dictionary"
+    assert all(isinstance(k, int) for k in avg_ratings.keys()), "Dictionary keys (years) should be integers"
     
     # Expected values based on movies.csv with median (8.0) imputation
     # 2020: (8.5+8.8+8.0+8.9+8.6+7.3)/6 = 8.35
