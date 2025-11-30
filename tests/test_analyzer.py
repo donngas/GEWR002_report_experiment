@@ -4,6 +4,7 @@ import numpy as np
 import os
 
 FPATH = "movies.csv"
+FPATH = os.path.join(os.path.dirname(__file__), '..', 'movies.csv')
 
 @pytest.fixture(scope="module")
 def analyzer(module_to_test):
