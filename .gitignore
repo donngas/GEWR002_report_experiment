@@ -4,3 +4,4 @@
 !.cursorignore
 __pycache__/
 localtest/
+localtest.*.txt
