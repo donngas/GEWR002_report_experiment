@@ -3,3 +3,4 @@
 !.aiexclude
 !.cursorignore
 __pycache__/
+localtest/
