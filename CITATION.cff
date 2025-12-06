@@ -1,0 +1,9 @@
+cff-version: 1.0.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Kim"
+  given-names: "Geunhyeong"
+title: "GEWR002_report_experiment"
+version: 1.0.0
+date-released: 2025-12-06
+url: "https://github.com/donngas/GEWR002_report_experiment"
